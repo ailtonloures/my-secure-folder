@@ -1,0 +1,11 @@
+{
+    "extensionName": {
+        "message": "Meus Favoritos Privados"
+    },
+    "extensionDescription": {
+        "message": "Uma extensão para guardar seus sites favoritos em segurança com senha."
+    },
+    "appTitle": {
+        "message": "Meus Favoritos"
+    }
+}

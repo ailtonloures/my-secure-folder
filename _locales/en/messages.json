@@ -1,0 +1,11 @@
+{
+    "extensionName": {
+        "message": "My Favorites Privates"
+    },
+    "extensionDescription" : {
+        "message": "An extension to keep your favorite websites securely with password."
+    },
+    "appTitle": {
+        "message": "My Favorites"
+    }
+}
