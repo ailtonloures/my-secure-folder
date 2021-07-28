@@ -7,5 +7,20 @@
     },
     "appTitle": {
         "message": "My Favorites"
+    },
+    "bookMarkText": {
+        "message": "Security"
+    },
+    "securityText": {
+        "message": "Seguridad"
+    },    
+    "contactText": {
+        "message": "Contact"
+    },
+    "updateButton": {
+        "message" : "Update"
+    },
+    "deleteButton": {
+        "message": "Remove"
     }
 }

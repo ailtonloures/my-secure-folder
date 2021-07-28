@@ -11,27 +11,61 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
-<body id="app">
+<body>
     <!-- Header -->
     <header>
-        <h4 class="i18n" data-i18n="appTitle">My Favorites</h4>
-        <img src="../../assets/images/icon.png" width="22" alt="My Favorites Icon">
+        <!-- Logo -->
+        <img src="../../assets/images/icon.png" width="22"
+            alt="My Favorites Icon">
+        <!-- Tabs -->
+        <ul class="nav nav-tabs">
+            <!-- Tab Bookmarks -->
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active i18n" id="bookmarks-tab"
+                    data-bs-toggle="tab" data-bs-target="#bookmarks" data-i18n="bookMarkText"
+                    type="button" role="tab" aria-controls="bookmarks"
+                    aria-selected="true">Bookmarks</button>
+            </li>
+            <!-- Tab Security -->
+            <li class="nav-item" role="presentation">
+                <button class="nav-link i18n" id="security-tab" data-bs-toggle="tab"
+                    data-bs-target="#security" data-i18n="securityText" type="button" role="tab"
+                    aria-controls="security"
+                    aria-selected="false">Security</button>
+            </li>
+            <!-- Tab Contact -->
+            <li class="nav-item" role="presentation">
+                <button class="nav-link i18n" id="contact-tab" data-bs-toggle="tab"
+                    data-bs-target="#contact" data-i18n="contactText" type="button" role="tab"
+                    aria-controls="contact"
+                    aria-selected="false">Contact</button>
+            </li>
+        </ul>
     </header>
-
     <!-- Main -->
-    <main>
-
+    <main id="app">
+        <!-- Tabs Content -->
+        <div class="tab-content">
+            <!-- Bookmarks Content -->
+            <div class="tab-pane fade show active" id="bookmarks"
+                role="tabpanel" aria-labelledby="bookmarks-tab">
+                <card-component v-bind:site="site"></card-component>
+            </div>
+            <!-- Security Content -->
+            <div class="tab-pane fade" id="security" role="tabpanel"
+                aria-labelledby="security-tab">...</div>
+            <!-- Contact Content -->
+            <div class="tab-pane fade" id="contact" role="tabpanel"
+                aria-labelledby="contact-tab">...</div>
+        </div>
     </main>
-
     <!-- Footer -->
     <footer>
-
     </footer>
-
     <!-- Library Imports -->
-    <script type="text/javascript" src="../../packages/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript"
+        src="../../packages/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../packages/vue/vue.min.js"></script>
-
     <!-- JavaScript -->
     <script type="text/javascript" src="./js/app.js"></script>
 </body>
