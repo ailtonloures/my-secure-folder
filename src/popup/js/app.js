@@ -2,6 +2,17 @@
 
 const { i18n, storage, identity } = chrome;
 
+// * Components
+const NomeComponent = Vue.extend({
+    data: function() {
+        return;
+    },
+    template: ''
+});
+
+// * Registering components
+Vue.component('nome-component', NomeComponent);
+
 new Vue({
     el: '#app',
     methods: {
@@ -36,4 +47,3 @@ const configUser = () => {
         }
     );
 }
-
