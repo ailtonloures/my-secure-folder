@@ -13,14 +13,26 @@
     },
     "securityText": {
         "message": "Segurança"
-    },    
+    },
     "contactText": {
         "message": "Contato"
     },
     "updateButton": {
-        "message" : "Atualizar"
+        "message": "Atualizar"
     },
     "deleteButton": {
         "message": "Remover"
-    }     
+    },
+    "confirmPasswordLabel": {
+        "message": "Confirme sua senha"
+    },
+    "confirmPasswordButton": {
+        "message": "Entrar"
+    },
+    "confirmAlertMessage": {
+        "message": "Se você ainda não possui alguma senha, registre na aba de Segurança ao lado."
+    },
+    "passwordErrorMessage1": {
+        "message": "Este campo não pode estar vazio."
+    }
 }

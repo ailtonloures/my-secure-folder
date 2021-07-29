@@ -25,6 +25,11 @@ a {
     font-weight: bold;
 }
 
+p, .invalid-feedback {
+    font-size: 10pt;
+}
+
+
 /* Header */
 
 header {
@@ -89,6 +94,13 @@ main .card .card-footer {
     display: flex;
     justify-content: space-between;
 }
+
+main .form-password {
+    max-width: 300px;
+    margin: calc(100% - 30vh) 0 0 20px;
+}
+
+/* Main Scrollbar */
 
 main::-webkit-scrollbar {
     width: 12px;

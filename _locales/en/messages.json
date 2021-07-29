@@ -22,5 +22,17 @@
     },
     "deleteButton": {
         "message": "Remove"
+    },
+    "confirmPasswordLabel": {
+        "message": "Confirm your password"
+    },
+    "confirmPasswordButton": {
+        "message": "Sign In"
+    },
+    "confirmAlertMessage": {
+        "message": "If you still don't have a password, register in the Security tab on the side."
+    },
+    "passwordErrorMessage1": {
+        "message": "This field cannot be empty."
     }
 }

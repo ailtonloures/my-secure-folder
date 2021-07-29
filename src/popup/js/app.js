@@ -2,7 +2,7 @@
 
 const { i18n, storage, identity } = chrome;
 
-// * Components
+// ? Components
 const CardComponent = Vue.extend({
     props: [
         'site'
@@ -32,14 +32,19 @@ const CardComponent = Vue.extend({
     `
 });
 
-// * Registering components
+// ? Registering components
 Vue.component('card-component', CardComponent);
-// * Vue config
+// ? Vue config
 Vue.config.devtools = true;
-
+// ? Vue Instance
 new Vue({
     el: '#app',
     data: {
+        // * Password form properties
+        passwordVerified: false,
+        passwordErrorMessage: null,
+        password: null,
+        // * Other properties
         site: {
             title: 'Bootstrap',
             url: 'https://getbootstrap.com/docs/5.0/components/card/'
@@ -53,27 +58,36 @@ new Vue({
                 const element = elements.item(i);
                 const i18nDataset = element.dataset.i18n;
 
-                element.innerText = i18n.getMessage(i18nDataset);
+                element.innerHTML = i18n.getMessage(i18nDataset);
             }
         },
+        configUser: function () {
+            // todo: check if no exists password and data
+            // * config password here...
+
+            identity.getProfileUserInfo(
+                ({ email, id }) => {
+                    if (email !== "" && id !== "") {
+                        // * store password and data...
+                    }
+                    else {
+                        // * store only password...
+                    }
+                }
+            );
+        },
+        checkPassword: function() {
+            const password = this.password;
+
+            if (password === null) {
+                this.passwordErrorMessage = i18n.getMessage('passwordErrorMessage1');
+                return;
+            }   
+            
+            this.passwordVerified = true;
+        }
     },
     mounted: function () {
         this.i18nActivate();
     }
 });
-
-const configUser = () => {
-    // todo: check if no exists password and data
-    // * config password here...
-
-    identity.getProfileUserInfo(
-        ({ email, id }) => {
-            if (email !== "" && id !== "") {
-                // * store password and data...
-            }
-            else {
-                // * store only password...
-            }
-        }
-    );
-}

@@ -22,21 +22,24 @@
             <!-- Tab Bookmarks -->
             <li class="nav-item" role="presentation">
                 <button class="nav-link active i18n" id="bookmarks-tab"
-                    data-bs-toggle="tab" data-bs-target="#bookmarks" data-i18n="bookMarkText"
-                    type="button" role="tab" aria-controls="bookmarks"
+                    data-bs-toggle="tab" data-bs-target="#bookmarks"
+                    data-i18n="bookMarkText" type="button" role="tab"
+                    aria-controls="bookmarks"
                     aria-selected="true">Bookmarks</button>
             </li>
             <!-- Tab Security -->
             <li class="nav-item" role="presentation">
-                <button class="nav-link i18n" id="security-tab" data-bs-toggle="tab"
-                    data-bs-target="#security" data-i18n="securityText" type="button" role="tab"
+                <button class="nav-link i18n" id="security-tab"
+                    data-bs-toggle="tab" data-bs-target="#security"
+                    data-i18n="securityText" type="button" role="tab"
                     aria-controls="security"
                     aria-selected="false">Security</button>
             </li>
             <!-- Tab Contact -->
             <li class="nav-item" role="presentation">
-                <button class="nav-link i18n" id="contact-tab" data-bs-toggle="tab"
-                    data-bs-target="#contact" data-i18n="contactText" type="button" role="tab"
+                <button class="nav-link i18n" id="contact-tab"
+                    data-bs-toggle="tab" data-bs-target="#contact"
+                    data-i18n="contactText" type="button" role="tab"
                     aria-controls="contact"
                     aria-selected="false">Contact</button>
             </li>
@@ -49,7 +52,30 @@
             <!-- Bookmarks Content -->
             <div class="tab-pane fade show active" id="bookmarks"
                 role="tabpanel" aria-labelledby="bookmarks-tab">
-                <card-component v-bind:site="site"></card-component>
+                <!-- Password Form -->
+                <div class="form-password" v-if="!passwordVerified">
+                    <div class="form-group position-relative">
+                        <label for="password" class="mb-1 i18n" data-i18n="confirmPasswordLabel">Confirm your
+                            password</label>
+                        <input type="password" class="form-control"
+                            id="password" v-model="password"
+                            v-bind:class="{ 'is-invalid': passwordErrorMessage != null }"
+                            required>
+                        <div class="invalid-feedback" v-if="passwordErrorMessage">
+                            {{ passwordErrorMessage }} 
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 mt-2">
+                        <button class="btn btn-dark i18n" @click="checkPassword" data-i18n="confirmPasswordButton">Sign
+                            In</button>
+                    </div>
+
+                    <div class="mt-2">
+                        <p class="i18n text-center" data-i18n="confirmAlertMessage">If you still don't have a password, register in the Security tab on the side.</p>
+                    </div>
+                </div>
+                <!-- Card Component -->
+                <card-component v-bind:site="site" v-else></card-component>
             </div>
             <!-- Security Content -->
             <div class="tab-pane fade" id="security" role="tabpanel"

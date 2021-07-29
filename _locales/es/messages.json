@@ -22,5 +22,17 @@
     },
     "deleteButton": {
         "message": "Borrar"
+    },
+    "confirmPasswordLabel": {
+        "message": "Confirmar la contraseña"
+    },
+    "confirmPasswordButton": {
+        "message": "Iniciar"
+    },
+    "confirmAlertMessage": {
+        "message": "Si aún no tiene contraseña, regístrese en la pestaña de Seguridad al costado."
+    },
+    "passwordErrorMessage1": {
+        "message": "Este campo no puede estar vacío."
     }
 }
