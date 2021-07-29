@@ -9,13 +9,13 @@
         "message": "My Favorites"
     },
     "bookMarkText": {
-        "message": "Security"
+        "message": "<i class='fas fa-bookmark'></i> &nbsp; Bookmarks"
     },
     "securityText": {
-        "message": "Seguridad"
+        "message": "<i class='fas fa-lock'></i> &nbsp; Security"
     },    
     "contactText": {
-        "message": "Contact"
+        "message": "<i class='fas fa-comment-dots'></i> &nbsp; Contact"
     },
     "updateButton": {
         "message" : "Update"
@@ -27,12 +27,15 @@
         "message": "Confirm your password"
     },
     "confirmPasswordButton": {
-        "message": "Sign In"
+        "message": "Sign In &nbsp; <i class='fas fa-sign-in-alt'></i>"
     },
     "confirmAlertMessage": {
         "message": "If you still don't have a password, register in the Security tab on the side."
     },
     "passwordErrorMessage1": {
         "message": "This field cannot be empty."
+    },
+    "addCurrentPageLinkText": {
+        "message": "<i class='fas fa-plus'></i> &nbsp Add current page"
     }
 }

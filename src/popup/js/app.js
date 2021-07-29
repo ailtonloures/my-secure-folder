@@ -1,6 +1,10 @@
 'use strict'
 
-const { i18n, storage, identity } = chrome;
+const {
+    i18n,
+    identity,
+    tabs
+} = chrome;
 
 // ? Components
 const CardComponent = Vue.extend({
@@ -13,11 +17,14 @@ const CardComponent = Vue.extend({
         },
         handleDelete: function () {
             console.log("delete")
+        },
+        goTo: function (url) {
+            window.open(url, '_blank');
         }
     },
     template: `
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" @click="goTo(site.url)" v-bind:title="'Navegar para ' + site.url">
                 <h5 class="card-title">{{ site.title }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ site.url }}</h6>
             </div>
@@ -38,17 +45,31 @@ Vue.component('card-component', CardComponent);
 Vue.config.devtools = true;
 // ? Vue Instance
 new Vue({
-    el: '#app',
+    el: '#root',
     data: {
         // * Password form properties
         passwordVerified: false,
         passwordErrorMessage: null,
         password: null,
+        // * User properties
+        user: {
+            email: null,
+            id: null,
+            password: null
+        },
         // * Other properties
-        site: {
-            title: 'Bootstrap',
-            url: 'https://getbootstrap.com/docs/5.0/components/card/'
-        }
+        sites: [
+            {
+                id: 1,
+                title: 'Teste',
+                url: 'https://getbootstrap.com/docs/5.0/extend/icons/'
+            },
+            {
+                id: 2,
+                title: 'Teste',
+                url: 'https://getbootstrap.com/docs/5.0/extend/icons/'
+            }
+        ]
     },
     methods: {
         i18nActivate: function () {
@@ -61,33 +82,52 @@ new Vue({
                 element.innerHTML = i18n.getMessage(i18nDataset);
             }
         },
-        configUser: function () {
-            // todo: check if no exists password and data
-            // * config password here...
-
+        currentUser: function () {
             identity.getProfileUserInfo(
                 ({ email, id }) => {
                     if (email !== "" && id !== "") {
-                        // * store password and data...
-                    }
-                    else {
-                        // * store only password...
+                        this.user.email = email;
+                        this.user.id = id;
                     }
                 }
             );
         },
-        checkPassword: function() {
+        addPage: function () {
+            tabs.query(
+                {
+                    active: true,
+                    currentWindow: true
+                },
+                (tabs) => {
+                    const {
+                        id,
+                        favIconUrl,
+                        title,
+                        url
+                    } = tabs[0];
+                }
+            );
+        },
+        checkPassword: function () {
             const password = this.password;
 
             if (password === null) {
                 this.passwordErrorMessage = i18n.getMessage('passwordErrorMessage1');
                 return;
-            }   
-            
+            }
+
             this.passwordVerified = true;
+        },
+    },
+    computed: {
+        now: function () {
+            return new Date();
         }
     },
     mounted: function () {
         this.i18nActivate();
+    },
+    created: function () {
+        this.currentUser();
     }
 });

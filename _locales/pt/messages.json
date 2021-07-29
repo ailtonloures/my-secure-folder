@@ -9,13 +9,13 @@
         "message": "Meus Favoritos"
     },
     "bookMarkText": {
-        "message": "Favoritos"
+        "message": "<i class='fas fa-bookmark'></i> &nbsp; Favoritos"
     },
     "securityText": {
-        "message": "Segurança"
+        "message": "<i class='fas fa-lock'></i> &nbsp; Segurança"
     },
     "contactText": {
-        "message": "Contato"
+        "message": "<i class='fas fa-comment-dots'></i> &nbsp; Contato"
     },
     "updateButton": {
         "message": "Atualizar"
@@ -27,12 +27,15 @@
         "message": "Confirme sua senha"
     },
     "confirmPasswordButton": {
-        "message": "Entrar"
+        "message": "Entrar &nbsp; <i class='fas fa-sign-in-alt'></i>"
     },
     "confirmAlertMessage": {
         "message": "Se você ainda não possui alguma senha, registre na aba de Segurança ao lado."
     },
     "passwordErrorMessage1": {
         "message": "Este campo não pode estar vazio."
+    },
+    "addCurrentPageLinkText": {
+        "message": "<i class='fas fa-plus'></i> &nbsp Adicionar página atual"
     }
 }

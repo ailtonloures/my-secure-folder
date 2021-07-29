@@ -12,7 +12,7 @@
 /* App */
 
 body {
-    width: 350px;
+    width: 370px;
     height: 600px;
     padding: 5px 0;
     font-family: NotoSans;
@@ -23,9 +23,10 @@ body {
 a {
     text-decoration: none;
     font-weight: bold;
+    font-size: 10pt;
 }
 
-p, .invalid-feedback {
+p, span, .invalid-feedback {
     font-size: 10pt;
 }
 
@@ -34,11 +35,8 @@ p, .invalid-feedback {
 
 header {
     width: 100%;
-    height: 40px;
+    height: 65px;
     padding: 0 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     text-align: start;
     border-bottom: 1px solid var(--line-color);
 }
@@ -63,7 +61,7 @@ header .nav .nav-link.active {
 
 main {
     width: 100%;
-    height: 520px;
+    height: 495px;
     padding: 5px 5px 0 5px;
     display: block;
     overflow-y: auto;
@@ -73,8 +71,20 @@ main {
 main .card {
     min-width: 100%;
     margin-bottom: 5px;
-    /* padding: -20px -15px; */
+    cursor: pointer;
+
     background-color: var(--line-color);
+
+    transition: 0.4s;
+}
+
+main .card:hover {
+    transition: 0.4s;
+    transform: scale(0.98);
+}
+
+main .card .card-body {
+    padding: 5px 15px;
 }
 
 main .card:last-child {
@@ -97,7 +107,7 @@ main .card .card-footer {
 
 main .form-password {
     max-width: 300px;
-    margin: calc(100% - 30vh) 0 0 20px;
+    margin: calc(100% - 30vh) 0 0 30px;
 }
 
 /* Main Scrollbar */
@@ -115,3 +125,4 @@ main::-webkit-scrollbar-thumb {
     border: 3px solid var(--background-color-primary);
     border-radius: 20px;
 }
+

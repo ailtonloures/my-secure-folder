@@ -4,96 +4,111 @@
 <head>
     <meta charset="UTF-8">
     <title class="i18n" data-i18n="appTitle">My Favorites</title>
-    <!-- Bootstrap CSS -->
+    <!-- CSS Library Imports -->
     <link rel="stylesheet"
         href="../../packages/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../packages/fontawesome/css/all.min.css">
     <!-- CSS -->
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-    <!-- Header -->
-    <header>
-        <!-- Logo -->
-        <img src="../../assets/images/icon.png" width="22"
-            alt="My Favorites Icon">
-        <!-- Tabs -->
-        <ul class="nav nav-tabs">
-            <!-- Tab Bookmarks -->
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active i18n" id="bookmarks-tab"
-                    data-bs-toggle="tab" data-bs-target="#bookmarks"
-                    data-i18n="bookMarkText" type="button" role="tab"
-                    aria-controls="bookmarks"
-                    aria-selected="true">Bookmarks</button>
-            </li>
-            <!-- Tab Security -->
-            <li class="nav-item" role="presentation">
-                <button class="nav-link i18n" id="security-tab"
-                    data-bs-toggle="tab" data-bs-target="#security"
-                    data-i18n="securityText" type="button" role="tab"
-                    aria-controls="security"
-                    aria-selected="false">Security</button>
-            </li>
-            <!-- Tab Contact -->
-            <li class="nav-item" role="presentation">
-                <button class="nav-link i18n" id="contact-tab"
-                    data-bs-toggle="tab" data-bs-target="#contact"
-                    data-i18n="contactText" type="button" role="tab"
-                    aria-controls="contact"
-                    aria-selected="false">Contact</button>
-            </li>
-        </ul>
-    </header>
-    <!-- Main -->
-    <main id="app">
-        <!-- Tabs Content -->
-        <div class="tab-content">
-            <!-- Bookmarks Content -->
-            <div class="tab-pane fade show active" id="bookmarks"
-                role="tabpanel" aria-labelledby="bookmarks-tab">
-                <!-- Password Form -->
-                <div class="form-password" v-if="!passwordVerified">
-                    <div class="form-group position-relative">
-                        <label for="password" class="mb-1 i18n" data-i18n="confirmPasswordLabel">Confirm your
-                            password</label>
-                        <input type="password" class="form-control"
-                            id="password" v-model="password"
-                            v-bind:class="{ 'is-invalid': passwordErrorMessage != null }"
-                            required>
-                        <div class="invalid-feedback" v-if="passwordErrorMessage">
-                            {{ passwordErrorMessage }} 
+    <div id="root">
+        <!-- Header -->
+        <header>
+            <div class="d-flex justify-content-between">
+                <h6 class="i18n" data-i18n="appTitle">My Favorites</h6>
+                <a href="#!" class="i18n" data-i18n="addCurrentPageLinkText"
+                    @click="addPage">
+                    <i class="fas fa-plus"></i> Add current page </a>
+            </div>
+            <!-- Tabs -->
+            <ul class="nav nav-tabs">
+                <!-- Tab Bookmarks -->
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active i18n" id="bookmarks-tab"
+                        data-bs-toggle="tab" data-bs-target="#bookmarks"
+                        data-i18n="bookMarkText" type="button" role="tab"
+                        aria-controls="bookmarks"
+                        aria-selected="true">Bookmarks</button>
+                </li>
+                <!-- Tab Security -->
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link i18n" id="security-tab"
+                        data-bs-toggle="tab" data-bs-target="#security"
+                        data-i18n="securityText" type="button" role="tab"
+                        aria-controls="security"
+                        aria-selected="false">Security</button>
+                </li>
+                <!-- Tab Contact -->
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link i18n" id="contact-tab"
+                        data-bs-toggle="tab" data-bs-target="#contact"
+                        data-i18n="contactText" type="button" role="tab"
+                        aria-controls="contact"
+                        aria-selected="false">Contact</button>
+                </li>
+            </ul>
+        </header>
+        <!-- Main -->
+        <main>
+            <!-- Tabs Content -->
+            <div class="tab-content">
+                <!-- Bookmarks Content -->
+                <div class="tab-pane fade show active" id="bookmarks"
+                    role="tabpanel" aria-labelledby="bookmarks-tab">
+                    <!-- Password Form -->
+                    <div class="form-password" v-if="!passwordVerified">
+                        <div class="form-group position-relative">
+                            <label for="password" class="mb-1 i18n"
+                                data-i18n="confirmPasswordLabel">Confirm your
+                                password</label>
+                            <input type="password" class="form-control"
+                                id="password" v-model="password"
+                                v-bind:class="{ 'is-invalid': passwordErrorMessage != null }"
+                                required>
+                            <div class="invalid-feedback"
+                                v-if="passwordErrorMessage"> {{
+                                passwordErrorMessage }} </div>
+                        </div>
+                        <div class="d-grid gap-2 mt-2">
+                            <button class="btn btn-dark i18n"
+                                @click="checkPassword"
+                                data-i18n="confirmPasswordButton"> Sign In
+                                &nbsp; <i
+                                    class="fas fa-sign-in-alt"></i></button>
+                        </div>
+                        <div class="mt-2">
+                            <p class="i18n text-center"
+                                data-i18n="confirmAlertMessage">If you still
+                                don't have a password, register in the Security
+                                tab on the side.</p>
                         </div>
                     </div>
-                    <div class="d-grid gap-2 mt-2">
-                        <button class="btn btn-dark i18n" @click="checkPassword" data-i18n="confirmPasswordButton">Sign
-                            In</button>
-                    </div>
-
-                    <div class="mt-2">
-                        <p class="i18n text-center" data-i18n="confirmAlertMessage">If you still don't have a password, register in the Security tab on the side.</p>
-                    </div>
+                    <!-- Card Component -->
+                    <card-component v-for="site in sites"
+                        v-bind:key="site.id"
+                        v-bind:site="site" v-else></card-component>
                 </div>
-                <!-- Card Component -->
-                <card-component v-bind:site="site" v-else></card-component>
+                <!-- Security Content -->
+                <div class="tab-pane fade" id="security" role="tabpanel"
+                    aria-labelledby="security-tab">...</div>
+                <!-- Contact Content -->
+                <div class="tab-pane fade" id="contact" role="tabpanel"
+                    aria-labelledby="contact-tab">...</div>
             </div>
-            <!-- Security Content -->
-            <div class="tab-pane fade" id="security" role="tabpanel"
-                aria-labelledby="security-tab">...</div>
-            <!-- Contact Content -->
-            <div class="tab-pane fade" id="contact" role="tabpanel"
-                aria-labelledby="contact-tab">...</div>
-        </div>
-    </main>
-    <!-- Footer -->
-    <footer>
-    </footer>
-    <!-- Library Imports -->
-    <script type="text/javascript"
-        src="../../packages/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="../../packages/vue/vue.min.js"></script>
+        </main>
+        <!-- Footer -->
+        <footer class="px-4 text-center">
+            <span>{{ now.getFullYear() }}</span>
+            <span v-if="user.email">- {{ user.email }}</span>
+        </footer>
+    </div>
+    <!-- JS Library Imports -->
+    <script src="../../packages/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../packages/vue/vue.min.js"></script>
     <!-- JavaScript -->
-    <script type="text/javascript" src="./js/app.js"></script>
+    <script src="./js/app.js"></script>
 </body>
 
 </html>

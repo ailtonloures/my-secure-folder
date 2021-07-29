@@ -15,8 +15,8 @@
     },
     "permissions": [
         "storage",
-        "tabs",
         "identity",
+        "tabs",
         "identity.email",
         "http://*/",
         "https://*/"
