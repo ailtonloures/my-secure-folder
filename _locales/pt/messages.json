@@ -27,7 +27,7 @@
         "message": "Entrar &nbsp; <i class='fas fa-sign-in-alt'></i>"
     },
     "confirmAlertMessage": {
-        "message": "Se você ainda não possui alguma senha, registre na aba de Segurança ao lado."
+        "message": "<b>Antes de adicionar esta página, confirme a sua senha acima para continuar</b>. Se você ainda não possui alguma senha, registre na aba de Segurança ao lado."
     },
     "passwordErrorMessage1": {
         "message": "Este campo não pode estar vazio."
@@ -61,5 +61,11 @@
     },
     "resetButton": {
         "message": "Resetar senha"
+    },
+    "dateFormatMessage": {
+        "message": "Registrado em: "
+    },
+    "dateFormat": {
+        "message": "DD/MM/YYYY - HH:mm"
     }
 }

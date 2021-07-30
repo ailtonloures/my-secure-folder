@@ -6,7 +6,7 @@
 
 @font-face {
     font-family: NotoSans;
-    src: url('../../../fonts/NotoSans/NotoSans-Regular.ttf');
+    src: url("../../../plugins/fonts/NotoSans/NotoSans-Regular.ttf");
 }
 
 /* App */
@@ -26,10 +26,11 @@ a {
     font-size: 10pt;
 }
 
-p, span, .invalid-feedback {
+p,
+span,
+.invalid-feedback {
     font-size: 10pt;
 }
-
 
 /* Header */
 
@@ -125,4 +126,3 @@ main::-webkit-scrollbar-thumb {
     border: 3px solid var(--background-color-primary);
     border-radius: 20px;
 }
-

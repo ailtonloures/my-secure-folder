@@ -2,7 +2,7 @@
     "extensionName": {
         "message": "Secure Folder"
     },
-    "extensionDescription" : {
+    "extensionDescription": {
         "message": "An extension to keep your favorite websites securely with password."
     },
     "appTitle": {
@@ -13,7 +13,7 @@
     },
     "securityText": {
         "message": "<i class='fas fa-lock'></i> &nbsp; Security"
-    },    
+    },
     "contactText": {
         "message": "<i class='fas fa-comment-dots'></i> &nbsp; Contact"
     },
@@ -27,7 +27,7 @@
         "message": "Sign In &nbsp; <i class='fas fa-sign-in-alt'></i>"
     },
     "confirmAlertMessage": {
-        "message": "If you still don't have a password, register in the Security tab on the side."
+        "message": "<b>Before adding this page, confirm your password above to continue</b>. If you still don't have a password, register in the Security tab on the side."
     },
     "passwordErrorMessage1": {
         "message": "This field cannot be empty."
@@ -61,5 +61,11 @@
     },
     "resetButton": {
         "message": "Reset password"
+    },
+    "dateFormatMessage": {
+        "message": "Created at: "
+    },
+    "dateFormat": {
+        "message": "YYYY-MM-DD - HH:mm"
     }
 }

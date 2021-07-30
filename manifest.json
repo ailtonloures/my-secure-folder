@@ -21,5 +21,5 @@
         "http://*/",
         "https://*/"
     ],
-    "content_security_policy": "script-src 'self' 'unsafe-eval' http://localhost:8098; object-src 'self'"
+    "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.gstatic.com; object-src 'self'"
 }
