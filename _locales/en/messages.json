@@ -38,6 +38,9 @@
     "passwordErrorMessage3": {
         "message": "Your password is incorrect."
     },
+    "passwordErrorMessage4": {
+        "message": "Don't forget your password!"
+    },
     "passwordMessage1": {
         "message": "Your password has been successfully set! Go to the side tab and test your new password to gain access to its resources."
     },

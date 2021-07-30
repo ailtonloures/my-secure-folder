@@ -19,7 +19,7 @@ const { i18n, identity, tabs, storage } = chrome;
 
 // ? Components
 const CardComponent = Vue.extend({
-    props: ["site"],
+    props: ["bookmark"],
     methods: {
         handleDelete: function (id) {
             bookmarks
@@ -37,22 +37,22 @@ const CardComponent = Vue.extend({
         },
     },
     template: `
-        <div class="card" v-bind:id="site.uid">
-            <div class="card-body" @click="goTo(site.url)" v-bind:title="'Navegar para ' + site.url">
+        <div class="card" v-bind:id="bookmark.uid">
+            <div class="card-body" @click="goTo(bookmark.url)" v-bind:title="'Navegar para ' + bookmark.url">
                 <div class="card-title">     
-                    <img v-bind:src="site.favIconUrl" width="18"> 
+                    <img v-bind:src="bookmark.favIconUrl" width="18"> 
                     &nbsp;              
-                    <span>{{ site.title }}</span>
+                    <span>{{ bookmark.title }}</span>
                 </div>
-                <h6 class="card-subtitle mb-2 text-muted">{{ site.url }}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{ bookmark.url }}</h6>
             </div>
             <div class="card-footer text-muted">
                 <span>
-                    <a href="#!" class="i18n card-link link-danger" data-i18n="deleteButton" @click="handleDelete(site.uid)">Remove</a>
+                    <a href="#!" class="i18n card-link link-danger" data-i18n="deleteButton" @click="handleDelete(bookmark.uid)">Remove</a>
                 </span>
                 <span>
                     <span class="i18n" data-i18n="dateFormatMessage">Created at: </span>
-                    <span>{{ formatDate(site.createdAt) }}</span>
+                    <span>{{ formatDate(bookmark.createdAt) }}</span>
                 </span>                
             </div>
         </div>
@@ -84,7 +84,8 @@ const root = new Vue({
             password: null,
         },
         // * Other properties
-        sites: [],
+        bookmarks: [],
+        bookmarksOnQueue: false,
     },
     methods: {
         i18nActivate: function () {
@@ -107,8 +108,7 @@ const root = new Vue({
                         if (result.hasOwnProperty(id)) {
                             root.user.password = result[id];
                             root.passwordExists = true;
-                            root.passwordMessage =
-                                i18n.getMessage("passwordMessage2");
+                            root.passwordMessage = i18n.getMessage("passwordMessage2");
                         }
                     });
 
@@ -124,9 +124,17 @@ const root = new Vue({
                 },
                 (tabs) => {
                     const { id, favIconUrl, title, url } = tabs[0];
-                    const createdAt = `${this.now.getFullYear()}-${
-                        this.now.getMonth() + 1
-                    }-${this.now.getDate()} ${this.now.getHours()}:${this.now.getMinutes()}`;
+
+                    const date = `${this.now.getFullYear()}-${this.now.getMonth() + 1}-${this.now.getDate()}`;
+                    const hour = `${this.now.getHours()}:${this.now.getMinutes()}`;
+                    const createdAt = `${date} ${hour}`;
+
+                    if (!this.passwordVerified) {
+                        this.bookmarksOnQueue = true;
+                        this.checkPasswordErrorMessage = i18n.getMessage("passwordErrorMessage4");
+
+                        return;
+                    }
 
                     bookmarks
                         .add({
@@ -138,13 +146,13 @@ const root = new Vue({
                             user: this.user.id,
                         })
                         .then((snapshot) => {
-                            this.sites.push({
+                            this.bookmarks.push({
                                 uid: snapshot.id,
                                 id,
                                 title,
                                 favIconUrl,
                                 url,
-                                createdAt
+                                createdAt,
                             });
                         });
                 }
@@ -158,10 +166,9 @@ const root = new Vue({
                 .get()
                 .then((snapshot) => {
                     snapshot.docs.forEach((bookmark) => {
-                        const { id, title, favIconUrl, url, createdAt } =
-                            bookmark.data();
+                        const { id, title, favIconUrl, url, createdAt } = bookmark.data();
 
-                        this.sites.push({
+                        this.bookmarks.push({
                             uid: bookmark.id,
                             id,
                             title,
@@ -180,16 +187,12 @@ const root = new Vue({
             this.confirmPasswordErrorMessage = null;
 
             if (newPassword === null) {
-                this.newPasswordErrorMessage = i18n.getMessage(
-                    "passwordErrorMessage1"
-                );
+                this.newPasswordErrorMessage = i18n.getMessage("passwordErrorMessage1");
                 return;
             }
 
             if (confirmPassword === null || confirmPassword !== newPassword) {
-                this.confirmPasswordErrorMessage = i18n.getMessage(
-                    "passwordErrorMessage2"
-                );
+                this.confirmPasswordErrorMessage = i18n.getMessage("passwordErrorMessage2");
                 return;
             }
 
@@ -220,17 +223,17 @@ const root = new Vue({
             const password = this.password;
 
             if (password === null) {
-                this.checkPasswordErrorMessage = i18n.getMessage(
-                    "passwordErrorMessage1"
-                );
+                this.checkPasswordErrorMessage = i18n.getMessage("passwordErrorMessage1");
                 return;
             }
 
             if (password !== this.user.password) {
-                this.checkPasswordErrorMessage = i18n.getMessage(
-                    "passwordErrorMessage3"
-                );
+                this.checkPasswordErrorMessage = i18n.getMessage("passwordErrorMessage3");
                 return;
+            }
+
+            if (this.bookmarksOnQueue) {
+                this.addBookmark();
             }
 
             this.password = null;

@@ -38,6 +38,9 @@
     "passwordErrorMessage3": {
         "message": "A sua senha está incorreta."
     },
+    "passwordErrorMessage4": {
+        "message": "Não esqueça da senha!"
+    },
     "passwordMessage1": {
         "message": "Sua senha foi configurada com sucesso! Vá para a aba ao lado e teste sua nova senha para ter acesso aos seus recursos."
     },
