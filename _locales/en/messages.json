@@ -1,12 +1,12 @@
 {
     "extensionName": {
-        "message": "My Favorites Privates"
+        "message": "Secure Folder"
     },
     "extensionDescription" : {
         "message": "An extension to keep your favorite websites securely with password."
     },
     "appTitle": {
-        "message": "My Favorites"
+        "message": "Secure Folder"
     },
     "bookMarkText": {
         "message": "<i class='fas fa-bookmark'></i> &nbsp; Bookmarks"
@@ -16,9 +16,6 @@
     },    
     "contactText": {
         "message": "<i class='fas fa-comment-dots'></i> &nbsp; Contact"
-    },
-    "updateButton": {
-        "message" : "Update"
     },
     "deleteButton": {
         "message": "Remove"
@@ -35,7 +32,34 @@
     "passwordErrorMessage1": {
         "message": "This field cannot be empty."
     },
+    "passwordErrorMessage2": {
+        "message": "Passwords do not match."
+    },
+    "passwordErrorMessage3": {
+        "message": "Your password is incorrect."
+    },
+    "passwordMessage1": {
+        "message": "Your password has been successfully set! Go to the side tab and test your new password to gain access to its resources."
+    },
+    "passwordMessage2": {
+        "message": "Your password is already set up."
+    },
+    "passwordMessage3": {
+        "message": "Your password has been deleted, create a new one."
+    },
     "addCurrentPageLinkText": {
         "message": "<i class='fas fa-plus'></i> &nbsp Add current page"
+    },
+    "createPasswordLabel": {
+        "message": "Create a password here"
+    },
+    "createPasswordLabel2": {
+        "message": "Confirm the password"
+    },
+    "saveButton": {
+        "message": "Save &nbsp <i class='fas fa-save'></i>"
+    },
+    "resetButton": {
+        "message": "Reset password"
     }
 }

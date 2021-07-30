@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <title class="i18n" data-i18n="appTitle">My Favorites</title>
     <!-- CSS Library Imports -->
-    <link rel="stylesheet"
-        href="../../packages/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../packages/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../packages/fontawesome/css/all.min.css">
     <!-- CSS -->
     <link rel="stylesheet" href="./css/style.css">
@@ -18,35 +17,20 @@
         <header>
             <div class="d-flex justify-content-between">
                 <h6 class="i18n" data-i18n="appTitle">My Favorites</h6>
-                <a href="#!" class="i18n" data-i18n="addCurrentPageLinkText"
-                    @click="addPage">
+                <a href="#!" class="i18n" data-i18n="addCurrentPageLinkText" @click="addPage">
                     <i class="fas fa-plus"></i> Add current page </a>
             </div>
             <!-- Tabs -->
             <ul class="nav nav-tabs">
                 <!-- Tab Bookmarks -->
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active i18n" id="bookmarks-tab"
-                        data-bs-toggle="tab" data-bs-target="#bookmarks"
-                        data-i18n="bookMarkText" type="button" role="tab"
-                        aria-controls="bookmarks"
-                        aria-selected="true">Bookmarks</button>
+                    <button class="nav-link active i18n" id="bookmarks-tab" data-bs-toggle="tab" data-bs-target="#bookmarks" data-i18n="bookMarkText"
+                        type="button" role="tab" aria-controls="bookmarks" aria-selected="true">Bookmarks</button>
                 </li>
                 <!-- Tab Security -->
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link i18n" id="security-tab"
-                        data-bs-toggle="tab" data-bs-target="#security"
-                        data-i18n="securityText" type="button" role="tab"
-                        aria-controls="security"
-                        aria-selected="false">Security</button>
-                </li>
-                <!-- Tab Contact -->
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link i18n" id="contact-tab"
-                        data-bs-toggle="tab" data-bs-target="#contact"
-                        data-i18n="contactText" type="button" role="tab"
-                        aria-controls="contact"
-                        aria-selected="false">Contact</button>
+                    <button class="nav-link i18n" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" data-i18n="securityText"
+                        type="button" role="tab" aria-controls="security" aria-selected="false">Security</button>
                 </li>
             </ul>
         </header>
@@ -55,47 +39,58 @@
             <!-- Tabs Content -->
             <div class="tab-content">
                 <!-- Bookmarks Content -->
-                <div class="tab-pane fade show active" id="bookmarks"
-                    role="tabpanel" aria-labelledby="bookmarks-tab">
-                    <!-- Password Form -->
-                    <div class="form-password" v-if="!passwordVerified">
+                <div class="tab-pane fade show active" id="bookmarks" role="tabpanel" aria-labelledby="bookmarks-tab">
+                    <!-- Check Password Form -->
+                    <div class="content" v-if="!passwordVerified">
                         <div class="form-group position-relative">
-                            <label for="password" class="mb-1 i18n"
-                                data-i18n="confirmPasswordLabel">Confirm your
-                                password</label>
-                            <input type="password" class="form-control"
-                                id="password" v-model="password"
-                                v-bind:class="{ 'is-invalid': passwordErrorMessage != null }"
-                                required>
-                            <div class="invalid-feedback"
-                                v-if="passwordErrorMessage"> {{
-                                passwordErrorMessage }} </div>
+                            <label for="password" class="mb-1 i18n" data-i18n="confirmPasswordLabel">Confirm your password</label>
+                            <input type="password" class="form-control" id="password" v-model="password"
+                                v-bind:class="{ 'is-invalid': checkPasswordErrorMessage != null }" required>
+                            <div class="invalid-feedback" v-if="checkPasswordErrorMessage"> {{ checkPasswordErrorMessage }} </div>
                         </div>
-                        <div class="d-grid gap-2 mt-2">
-                            <button class="btn btn-dark i18n"
-                                @click="checkPassword"
-                                data-i18n="confirmPasswordButton"> Sign In
-                                &nbsp; <i
+                        <div class="d-grid gap-2 mt-3">
+                            <button class="btn btn-dark i18n" @click="checkPassword" data-i18n="confirmPasswordButton"> Sign In &nbsp; <i
                                     class="fas fa-sign-in-alt"></i></button>
                         </div>
                         <div class="mt-2">
-                            <p class="i18n text-center"
-                                data-i18n="confirmAlertMessage">If you still
-                                don't have a password, register in the Security
+                            <p class="i18n text-center" data-i18n="confirmAlertMessage">If you still don't have a password, register in the Security
                                 tab on the side.</p>
                         </div>
                     </div>
                     <!-- Card Component -->
-                    <card-component v-for="site in sites"
-                        v-bind:key="site.id"
-                        v-bind:site="site" v-else></card-component>
+                    <card-component v-for="site in sites" v-bind:key="site.id" v-bind:site="site" v-else></card-component>
                 </div>
                 <!-- Security Content -->
-                <div class="tab-pane fade" id="security" role="tabpanel"
-                    aria-labelledby="security-tab">...</div>
-                <!-- Contact Content -->
-                <div class="tab-pane fade" id="contact" role="tabpanel"
-                    aria-labelledby="contact-tab">...</div>
+                <div class="tab-pane fade show" id="security" role="tabpanel" aria-labelledby="security-tab">
+                    <!-- Create Password Form -->
+                    <div class="content">
+                        <div v-if="!passwordExists">
+                            <div class="form-group position-relative">
+                                <label for="newPassword" class="mb-1 i18n" data-i18n="createPasswordLabel">Create your password here</label>
+                                <input type="password" class="form-control" id="newPassword" v-model="newPassword"
+                                    v-bind:class="{ 'is-invalid': newPasswordErrorMessage != null }" required>
+                                <div class="invalid-feedback" v-if="newPasswordErrorMessage"> {{ newPasswordErrorMessage }} </div>
+                            </div>
+                            <div class="form-group position-relative mt-2">
+                                <label for="password" class="mb-1 i18n" data-i18n="createPasswordLabel2">Confirm the password</label>
+                                <input type="password" class="form-control" id="confirmPassword" v-model="confirmPassword"
+                                    v-bind:class="{ 'is-invalid': confirmPasswordErrorMessage != null }" required>
+                                <div class="invalid-feedback" v-if="confirmPasswordErrorMessage"> {{ confirmPasswordErrorMessage }} </div>
+                            </div>
+                            <div class="d-grid gap-2 mt-3">
+                                <button class="btn btn-dark i18n" @click="createPassword" data-i18n="saveButton"> Save &nbsp; <i
+                                        class='fas fa-save'></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <p class="text-center">{{ passwordMessage }}</p>
+                        </div>
+                        <div class="d-grid gap-2 mt-3" v-if="passwordExists && passwordVerified">
+                            <button class="btn btn-danger i18n" @click="resetPassword" data-i18n="resetButton">Reset password</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
         <!-- Footer -->

@@ -1,12 +1,12 @@
 {
     "extensionName": {
-        "message": "Meus Favoritos Privados"
+        "message": "Pasta Segura"
     },
     "extensionDescription": {
         "message": "Uma extensão para guardar seus sites favoritos em segurança com senha."
     },
     "appTitle": {
-        "message": "Meus Favoritos"
+        "message": "Pasta Segura"
     },
     "bookMarkText": {
         "message": "<i class='fas fa-bookmark'></i> &nbsp; Favoritos"
@@ -16,9 +16,6 @@
     },
     "contactText": {
         "message": "<i class='fas fa-comment-dots'></i> &nbsp; Contato"
-    },
-    "updateButton": {
-        "message": "Atualizar"
     },
     "deleteButton": {
         "message": "Remover"
@@ -35,7 +32,34 @@
     "passwordErrorMessage1": {
         "message": "Este campo não pode estar vazio."
     },
+    "passwordErrorMessage2": {
+        "message": "As senhas não conferem."
+    },
+    "passwordErrorMessage3": {
+        "message": "A sua senha está incorreta."
+    },
+    "passwordMessage1": {
+        "message": "Sua senha foi configurada com sucesso! Vá para a aba ao lado e teste sua nova senha para ter acesso aos seus recursos."
+    },
+    "passwordMessage2": {
+        "message": "Sua senha já está configurada."
+    },
+    "passwordMessage3": {
+        "message": "Sua senha foi apagada, crie uma nova."
+    },
     "addCurrentPageLinkText": {
         "message": "<i class='fas fa-plus'></i> &nbsp Adicionar página atual"
+    },
+    "createPasswordLabel": {
+        "message": "Crie aqui uma senha"
+    },
+    "createPasswordLabel2": {
+        "message": "Confirme a senha"
+    },
+    "saveButton": {
+        "message": "Salvar &nbsp <i class='fas fa-save'></i>"
+    },
+    "resetButton": {
+        "message": "Resetar senha"
     }
 }

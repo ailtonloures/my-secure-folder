@@ -105,9 +105,9 @@ main .card .card-footer {
     justify-content: space-between;
 }
 
-main .form-password {
+main .content {
     max-width: 300px;
-    margin: calc(100% - 30vh) 0 0 30px;
+    margin: calc(100% - 40vh) 0 0 30px;
 }
 
 /* Main Scrollbar */

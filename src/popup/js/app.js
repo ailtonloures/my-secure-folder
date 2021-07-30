@@ -3,18 +3,16 @@
 const {
     i18n,
     identity,
-    tabs
+    tabs,
+    storage
 } = chrome;
 
 // ? Components
 const CardComponent = Vue.extend({
     props: [
-        'site'
+        'site',
     ],
     methods: {
-        handleUpdate: function () {
-            console.log("update")
-        },
         handleDelete: function () {
             console.log("delete")
         },
@@ -30,7 +28,6 @@ const CardComponent = Vue.extend({
             </div>
             <div class="card-footer text-muted">
                 <span>
-                    <a href="#!" class="i18n card-link link-success" data-i18n="updateButton" @click="handleUpdate">Update</a>
                     <a href="#!" class="i18n card-link link-danger" data-i18n="deleteButton" @click="handleDelete">Remove</a>
                 </span>
                 <span>2 days ago</span>
@@ -44,13 +41,19 @@ Vue.component('card-component', CardComponent);
 // ? Vue config
 Vue.config.devtools = true;
 // ? Vue Instance
-new Vue({
+const root = new Vue({
     el: '#root',
     data: {
         // * Password form properties
         passwordVerified: false,
-        passwordErrorMessage: null,
+        passwordExists: false,
+        passwordMessage: null,
+        checkPasswordErrorMessage: null,
+        newPasswordErrorMessage: null,
+        confirmPasswordErrorMessage: null,
         password: null,
+        newPassword: null,
+        confirmPassword: null,
         // * User properties
         user: {
             email: null,
@@ -86,8 +89,16 @@ new Vue({
             identity.getProfileUserInfo(
                 ({ email, id }) => {
                     if (email !== "" && id !== "") {
-                        this.user.email = email;
-                        this.user.id = id;
+                        root.user.email = email;
+                        root.user.id = id;
+
+                        storage.sync.get(id, function (result) {
+                            if (result.hasOwnProperty(id)) {
+                                root.user.password = result[id];
+                                root.passwordExists = true;
+                                root.passwordMessage = i18n.getMessage('passwordMessage2');
+                            }
+                        });
                     }
                 }
             );
@@ -108,14 +119,58 @@ new Vue({
                 }
             );
         },
+        createPassword: function () {
+            const newPassword = this.newPassword;
+            const confirmPassword = this.confirmPassword;
+
+            this.newPasswordErrorMessage = null;
+            this.confirmPasswordErrorMessage = null;
+
+            if (newPassword === null) {
+                this.newPasswordErrorMessage = i18n.getMessage('passwordErrorMessage1');
+                return;
+            }
+
+            if (confirmPassword === null || confirmPassword !== newPassword) {
+                this.confirmPasswordErrorMessage = i18n.getMessage('passwordErrorMessage2');
+                return;
+            }
+
+            storage.sync.set({
+                [this.user.id]: newPassword
+            }, () => {
+                this.user.password = newPassword;
+
+                this.newPassword = null;
+                this.confirmPassword = null;
+                this.passwordExists = true;
+                this.passwordMessage = i18n.getMessage('passwordMessage1');
+            });
+        },
+        resetPassword: function () {
+            storage.sync.remove(this.user.id, () => {
+                this.passwordExists = false;
+                this.passwordVerified = false;
+                this.passwordMessage = i18n.getMessage('passwordMessage3');
+
+                this.user.password = null;
+            });
+        },
         checkPassword: function () {
             const password = this.password;
 
             if (password === null) {
-                this.passwordErrorMessage = i18n.getMessage('passwordErrorMessage1');
+                this.checkPasswordErrorMessage = i18n.getMessage('passwordErrorMessage1');
                 return;
             }
 
+            if (password !== this.user.password) {
+                this.checkPasswordErrorMessage = i18n.getMessage('passwordErrorMessage3');
+                return;
+            }            
+
+            this.password = null;
+            this.passwordMessage = i18n.getMessage('passwordMessage2');
             this.passwordVerified = true;
         },
     },
@@ -125,6 +180,9 @@ new Vue({
         }
     },
     mounted: function () {
+        this.i18nActivate();
+    },
+    updated: function () {
         this.i18nActivate();
     },
     created: function () {
