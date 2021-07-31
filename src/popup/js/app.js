@@ -79,7 +79,6 @@ const root = new Vue({
         confirmPassword: null,
         // * User properties
         user: {
-            email: null,
             id: null,
             password: null,
         },
@@ -99,9 +98,8 @@ const root = new Vue({
             }
         },
         getCurrentUser: function () {
-            identity.getProfileUserInfo(({ email, id }) => {
-                if (email !== "" && id !== "") {
-                    root.user.email = email;
+            identity.getProfileUserInfo(({ id }) => {
+                if (id !== "") {
                     root.user.id = id;
 
                     storage.sync.get(id, function (result) {
