@@ -21,7 +21,7 @@ const { i18n, identity, tabs, storage } = chrome;
 const CardComponent = Vue.extend({
     props: ["bookmark"],
     methods: {
-        handleDelete: function (id) {
+        deleteBookmark: function (id) {
             bookmarks
                 .doc(id)
                 .delete()
@@ -48,7 +48,7 @@ const CardComponent = Vue.extend({
             </div>
             <div class="card-footer text-muted">
                 <span>
-                    <a href="#!" class="i18n card-link link-danger" data-i18n="deleteButton" @click="handleDelete(bookmark.uid)">Remove</a>
+                    <a href="#!" class="i18n card-link link-danger" data-i18n="deleteButton" @click="deleteBookmark(bookmark.uid)">Remove</a>
                 </span>
                 <span>
                     <span class="i18n" data-i18n="dateFormatMessage">Created at: </span>
@@ -83,7 +83,7 @@ const root = new Vue({
             id: null,
             password: null,
         },
-        // * Other properties
+        // * Bookmarks properties
         bookmarks: [],
         bookmarksOnQueue: false,
     },
@@ -98,7 +98,7 @@ const root = new Vue({
                 element.innerHTML = i18n.getMessage(i18nDataset);
             }
         },
-        currentUser: function () {
+        getCurrentUser: function () {
             identity.getProfileUserInfo(({ email, id }) => {
                 if (email !== "" && id !== "") {
                     root.user.email = email;
@@ -115,6 +115,24 @@ const root = new Vue({
                     localStorage.setItem("userId", id);
                 }
             });
+        },
+        encryptBookmark: function (bookmark, userId) {
+            const encryptedBookmark = {};
+
+            Object.keys(bookmark).forEach((key) => {
+                encryptedBookmark[key] = CryptoJS.AES.encrypt(bookmark[key].toString(), userId).toString();
+            });
+
+            return encryptedBookmark;
+        },
+        decryptBookmark: function (bookmark, userId) {
+            const decryptedBookmark = {};
+
+            Object.keys(bookmark).forEach((key) => {
+                decryptedBookmark[key] = CryptoJS.AES.decrypt(bookmark[key].toString(), userId).toString(CryptoJS.enc.Utf8);
+            });
+
+            return decryptedBookmark;
         },
         addBookmark: function () {
             tabs.query(
@@ -136,12 +154,19 @@ const root = new Vue({
                         return;
                     }
 
-                    bookmarks
-                        .add({
+                    const encryptedBookmark = this.encryptBookmark(
+                        {
                             id,
                             title,
                             favIconUrl,
                             url,
+                        },
+                        this.user.id
+                    );
+
+                    bookmarks
+                        .add({
+                            ...encryptedBookmark,
                             createdAt,
                             user: this.user.id,
                         })
@@ -168,13 +193,20 @@ const root = new Vue({
                     snapshot.docs.forEach((bookmark) => {
                         const { id, title, favIconUrl, url, createdAt } = bookmark.data();
 
+                        const decryptedBookmark = this.decryptBookmark(
+                            {
+                                id,
+                                title,
+                                favIconUrl,
+                                url,
+                            },
+                            userId
+                        );
+
                         this.bookmarks.push({
                             uid: bookmark.id,
-                            id,
-                            title,
-                            favIconUrl,
-                            url,
                             createdAt,
+                            ...decryptedBookmark,
                         });
                     });
                 });
@@ -247,7 +279,7 @@ const root = new Vue({
         },
     },
     created: function () {
-        this.currentUser();
+        this.getCurrentUser();
     },
     mounted: function () {
         this.i18nActivate();
